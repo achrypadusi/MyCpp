@@ -3,25 +3,33 @@
 #ifndef DMA_H_
 #define DMA_H_
 #include <iostream>
-// Base Class Using DMA
-class baseDMA
+
+class ABC
 {
 private:
 	char* label;
 	int rating;
 public:
-	baseDMA(const char* l = "null", int r = 0);
-	baseDMA(const baseDMA& rs);
-	virtual ~baseDMA();
-	baseDMA& operator=(const baseDMA& rs);
-	friend std::ostream& operator<<(std::ostream& os,
-		const baseDMA& rs);
+	ABC(const char* l = "null", int r = 0);
+	ABC(const ABC& rs);
+	virtual ~ABC();
+	ABC& operator=(const ABC& rs);
+	char* getLabel();
+	int getRating();
+	virtual void view();
 };
-// derived class without DMA
-// no destructor needed
-// uses implicit copy constructor
-// uses implicit assignment operator
-class lacksDMA :public baseDMA
+
+// Base Class Using DMA
+class baseDMA : public ABC
+{
+private:
+public:
+	baseDMA(const char* l = "null", int r = 0) : ABC(l, r) {};
+	baseDMA(const baseDMA& rs) : ABC(rs) {};
+	//baseDMA& operator=(const baseDMA& rs);
+};
+
+class lacksDMA :public ABC
 {
 private:
 	enum { COL_LEN = 40 };
@@ -30,22 +38,20 @@ public:
 	lacksDMA(const char* c = "blank", const char* l = "null",
 		int r = 0);
 	lacksDMA(const char* c, const baseDMA& rs);
-	friend std::ostream& operator<<(std::ostream& os,
-		const lacksDMA& rs);
+	virtual void view();
 };
-// derived class with DMA
-class hasDMA :public baseDMA
+
+class hasDMA :public ABC
 {
 private:
 	char* style;
 public:
 	hasDMA(const char* s = "none", const char* l = "null",
 		int r = 0);
-	hasDMA(const char* s, const baseDMA& rs);
+	hasDMA(const char* s, const ABC& rs);
 	hasDMA(const hasDMA& hs);
-	~hasDMA();
+	virtual ~hasDMA();
 	hasDMA& operator=(const hasDMA& rs);
-	friend std::ostream& operator<<(std::ostream& os,
-		const hasDMA& rs);
+	virtual void view();
 };
 #endif
