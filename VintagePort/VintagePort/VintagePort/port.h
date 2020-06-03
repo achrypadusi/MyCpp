@@ -17,9 +17,10 @@ public:
 	Port& operator=(const Port& p);
 	Port& operator+=(int b); // adds b to bottles
 	Port& operator-=(int b); // subtracts b from bottles, if available
-		int BottleCount() const { return bottles; }
+	int BottleCount() const { return bottles; }
 	virtual void Show() const;
 	friend ostream& operator<<(ostream& os, const Port& p);
+	char* createDynChar(const char* newString);
 };
 
 class VintagePort : public Port // style necessarily = "vintage"
@@ -33,8 +34,8 @@ public:
 	VintagePort(const VintagePort& vp);
 	~VintagePort() { delete[] nickname; }
 	VintagePort& operator=(const VintagePort& vp);
-	void Show() const;
-	friend ostream& operator<<(ostream& os, const VintagePort& vp);
+	//void Show() const;
+	//friend ostream& operator<<(ostream& os, const VintagePort& vp);
 };
 
 #endif
