@@ -1,54 +1,49 @@
-// frnd2tmp.cpp -- template class with non-template friends
+// tmp2tmp.cpp -- template friends to a template class
 #include <iostream>
 using std::cout;
 using std::endl;
-template <typename T>
-class HasFriend
+// template prototypes
+template <typename T> void counts();
+template <typename T> void report(T&);
+// template class
+template <typename TT>
+class HasFriendT
 {
 private:
-	T item;
+	TT item;
 	static int ct;
 public:
-	HasFriend(const T& i) : item(i) { ct++; }
-	~HasFriend() { ct--; }
-	friend void counts();
-	friend void reports(HasFriend<T>&); // template parameter
+	HasFriendT(const TT& i) : item(i) { ct++; }
+	~HasFriendT() { ct--; }
+	friend void counts<TT>();
+	friend void report<>(HasFriendT<TT>&);
 };
-// each specialization has its own static data member
 template <typename T>
-int HasFriend<T>::ct = 0;
-// non-template friend to all HasFriend<T> classes
+int HasFriendT<T>::ct = 0;
+// template friend functions definitions
+template <typename T>
 void counts()
 {
-	cout << "int count: " << HasFriend<int>::ct << "; ";
-	cout << "double count: " << HasFriend<double>::ct << endl;
+	cout << "template size: " << sizeof(HasFriendT<T>) << "; ";
+	cout << "template counts(): " << HasFriendT<T>::ct << endl;
 }
-// non-template friend to the HasFriend<int> class
-void reports(HasFriend<int>& hf)
+template <typename T>
+void report(T& hf)
 {
-	cout << "HasFriend<int>: " << hf.item << endl;
+	cout << hf.item << endl;
 }
-// non-template friend to the HasFriend<double> class
-void reports(HasFriend<double>& hf)
-{
-	cout << "HasFriend<double>: " << hf.item << endl;
-}
-
 int main()
 {
-	cout << "No objects declared: ";
-	counts();
-	HasFriend<int> hfi1(10);
-	cout << "After hfi1 declared: ";
-	counts();
-	HasFriend<int> hfi2(20);
-	cout << "After hfi2 declared: ";
-	counts();
-	HasFriend<double> hfdb(10.5);
-	cout << "After hfdb declared: ";
-	counts();
-	reports(hfi1);
-	reports(hfi2);
-	reports(hfdb);
+	counts<int>();
+	HasFriendT<int> hfi1(10);
+	HasFriendT<int> hfi2(20);
+	HasFriendT<double> hfdb(10.5);
+	report(hfi1); // generate report(HasFriendT<int> &)
+	report(hfi2); // generate report(HasFriendT<int> &)
+	report(hfdb); // generate report(HasFriendT<double> &)
+	cout << "counts<int>() output:\n";
+	counts<int>();
+	cout << "counts<double>() output:\n";
+	counts<double>();
 	return 0;
 }
