@@ -1,5 +1,7 @@
 #include <string>
 #include <iostream>
+#include <fstream>
+#include <vector>
 
 using std::string;
 
@@ -8,20 +10,33 @@ int main()
 {
 	using namespace std;
 
-	string word, wordRev;
+	string fileName, word;
+	vector<string> allWords;
 
-	cout << endl << "write word to check palindrome. Write q to exit: ";
-	while (getline(cin,word) && word != "q") {
+	cout << endl << "write file name: ";
+	cin >> fileName;
+	fstream fileObj;
+	fileObj.open(fileName, fstream::in);
+
+	while (fileObj >> word)
+		allWords.push_back(word);
+	fileObj.close();
+
+	for (auto word : allWords) {
+		cout << word << endl;
 		simplyString(word);
-		wordRev = word;
+		auto wordRev = word;
 		reverse(wordRev.begin(), wordRev.end());
 		if ( word == wordRev )
 		{
 			cout << endl << "yes" << endl;
 		} else
 			cout << endl << "no" << endl;
-		cout << endl << "write word to check palindrome. Write empty to exit: ";
 	}
+	
+	getchar();
+	getchar();
+	
 	return 0;
 }
 
