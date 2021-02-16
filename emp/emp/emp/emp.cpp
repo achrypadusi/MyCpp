@@ -7,6 +7,7 @@ using std::endl;
 //test git commit
 
 // abstr_emp
+//test change
 abstr_emp::abstr_emp() : fname(""), lname(""), job("") {};
 abstr_emp::abstr_emp(const std::string& fn, const std::string& ln, const std::string& j) : fname(fn), lname(ln), job(j) {};
 void abstr_emp::ShowAll() const
