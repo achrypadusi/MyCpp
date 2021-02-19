@@ -1,5 +1,6 @@
 //git test1
 //test source tree
+//test vsc
 
 
 // workermi.h -- working classes with MI
