@@ -1,6 +1,6 @@
 //git test1
 //last test
-//LAST TEST2
+//LAST TEST2 cd test
 
 
 // workermi.cpp -- working class methods with MI
