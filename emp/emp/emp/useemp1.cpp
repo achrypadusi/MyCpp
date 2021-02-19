@@ -22,5 +22,6 @@ int main(void)
 	abstr_emp* tri[4] = { &em, &fi, &hf, &hf2 };
 	for (int i = 0; i < 4; i++)
 		tri[i]->ShowAll();
+	cout<<"test change"<<endl;
 	return 0;
 }
