@@ -1,3 +1,6 @@
+//git test1
+
+
 // workermi.cpp -- working class methods with MI
 #include "workermi.h"
 #include <iostream>
